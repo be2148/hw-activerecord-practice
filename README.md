@@ -22,7 +22,7 @@ The files in this assignment are:
 
 ## Prerequisite knowledge
 
-If you have never worked with relational databases before, we strongly recommend you get some very basic background.  An excellent free resource for learning SQL basics is the [Khan Academy SQL tutorial](https://www.khanacademy.org/computing/computer-programming/sql):
+If you have never worked with relational databases before, we strongly recommend that you get some very basic background. An excellent free resource for learning SQL basics is the [Khan Academy SQL tutorial](https://www.khanacademy.org/computing/computer-programming/sql):
 the sections on SQL Basics, More Advanced SQL Queries, and Modifying Databases with SQL will suffice for this chapter.
 
 An alternative is [SQLTutorial.org](https://sqltutorial.org), sections 1-4, 11, and 13.
@@ -35,10 +35,10 @@ To get started,
 
 2. Change into the app's root directory `hw-activerecord-practice` (`cd hw-activerecord-practice`)
 
-3. Use the `Dockerfile` provided in the repo as an environment to work in via the Docker's shell (except for file 
-editing) as we have done previously. Relevant Docker command to build and run the container include:
+3. Use the `Dockerfile` provided in the repo as an environment to work in via Docker's shell (except for file 
+editing) as we have done previously. Relevant Docker commands to build and run the container include:
     - `docker build -t hw-activerecord-practice .`
-    - `docker run docker run -v "$(pwd)":/app -it hw-activerecord-practice:latest`
+    - `docker run -v "$(pwd)":/app -it hw-activerecord-practice:latest`
 
     Note that since we are not launching a server in this CHIP, we don't need to configure the passthrough of 
 communications through port 3000 (as we did in earlier CHIPS).
@@ -57,11 +57,11 @@ Your goal is to write ActiveRecord queries against the fake customer database wh
 
 Each query you will write will be "wrapped" in its own class method of `class Customer < ActiveRecord::Base`, which is defined in `activerecord_practice.rb`.
 
-However, you won't execute this file directly.  Instead, you will use the specfile, contains a test for each of the queries you must write.
+However, you won't execute this file directly.  Instead, you will use the specfile, which contains a test for each of the queries you must write.
 
 * Run the test file once with `bundle exec rspec spec/activerecord_practice_spec.rb`.  (Recall that `bundle exec` is needed to ensure that the correct version(s) of required gem(s) are properly loaded and activated before your code runs.)  The result should be "13 examples, 0 failures, 13 pending."
 
-We've set up the tests so that initially all tests are skipped.  (They would all fail, because you haven't written the code for them yet.) Open the specfile and take a look. Your workflow will be as follows:
+We've set up the tests so that initially, all tests are skipped.  (They would all fail, because you haven't written the code for them yet.) Open the specfile and take a look. Your workflow will be as follows:
 
 1. Pick an example to work on (we recommend doing them in order). Each example (test case) begins with `xspecify`.
 
@@ -73,7 +73,7 @@ We've set up the tests so that initially all tests are skipped.  (They would all
 
 ## Automating the workflow using Guard
 
-Does this mean you have to manually run `rspec` every time you want to work on a new example?  No!  Happily there is some automation that can help us.  `guard` is a gem that watches for files in your project to change, and when they do, it automatically re-runs a predefined set of tests.  We have configured `guard` here so that whenever you change either the specfile or `activerecord_practice.rb`, it will re-run all tests that begin with `specify` (as opposed to `xspecify`). (If you're curious about how Guard works, you can look in `Guardfile` to see, but you don't need to worry about it.)
+Does this mean you have to manually run `rspec` every time you want to work on a new example?  No!  Happily, there is some automation that can help us.  `guard` is a gem that watches for files in your project to change, and when they do, it automatically re-runs a predefined set of tests.  We have configured `guard` here so that whenever you change either the specfile or `activerecord_practice.rb`, it will re-run all tests that begin with `specify` (as opposed to `xspecify`). (If you're curious about how Guard works, you can look in `Guardfile` to see, but you don't need to worry about it.)
 
 * In a terminal window, type `guard`.  You should see something like
 "Guard is now watching..."
@@ -93,7 +93,7 @@ Let's work on example #1 as listed in the output of `rspec`.  The output should 
 As the output suggests, take a look at line 40 in the specfile. In the body of the testcase, you can see that the test will try to call the class method `Customer.any_candice`. Change `xspecify` to `specify` in line 40, save the specfile, and Guard should once again run the tests; but this time, test #1 will not be skipped but instead will fail.
 
 Now go to `lib/activerecord_practice.rb` where we have defined an empty method `Customer.any_candice`.  Fill in the body of this method so that it returns the enumerable of `Customer` objects whose first name(s) match "Candice".
-(Reminder: the `customers.csv` file contains an exported version of the contents of `customers.sqlite3`, which is the database used by this code.)  Each time you make a change and save `activerecord_practice.rb`, Guard will re-run the tests.  When you eventually get the method call right, the test will pass and the name of the test will print in green, with all still-pending tests printed in yellow. Then you can move on to the next example.
+(Reminder: the `customers.csv` file contains an exported version of the contents of `customers.sqlite3`, which is the database used by this code.)  Each time you make a change and save `activerecord_practice.rb`, Guard will re-run the tests.  When you eventually get the method call right, the test will pass, and the name of the test will print in green, with all still-pending tests printed in yellow. Then you can move on to the next example.
 
 Note that for most test cases, the test case will initially fail because the class method of `Customer` that it tries to call doesn't exist at all (we only provided empty method skeletons for the first couple of examples).  But by reading each test case's code, you can see what it expects the class method to be named, and define it yourself.
 
@@ -103,7 +103,7 @@ When all the examples pass (RSpec should print each passing example's name in gr
 
 ## Submitting your work
 Commit all newly created and modified files to your local repo and then push them to your GitHub repo.
-Submit your work via Grdadescope so that it pulls your code from your connected GitHub repo.
+Submit your work via Gradescope so that it pulls your code from your connected GitHub repo.
 
 ## Helpful Hints and Links
 
@@ -113,9 +113,9 @@ As usual, you will have to look up the ActiveRecord documentation to learn how t
 * [Basic queries using ActiveRecord](https://guides.rubyonrails.org/v4.2/active_record_querying.html)
 * [Complete ActiveRecord documentation (for Rails 4.2.x)](https://api.rubyonrails.org/v4.2/classes/ActiveRecord/Base.html)
 
-Even though the examples call for filtering and sometimes sorting a subset of customer records, **you should never need to call** Ruby collection methods like `map` or `collect` or `sort` -- 100% of the work can be done in the ActiveRecord call.
+Even though the examples call for filtering and sometimes sorting a subset of customer records, **you should never need to call** Ruby collection methods like `map` or `collect`, or `sort` -- 100% of the work can be done in the ActiveRecord call.
 
-Also, the goal is to pass each test by using ActiveRecord's query interface, not by calling `find()` with the id's of the expected result records.  To remove that temptation, the RSpec tests raise an  error if you directly use `ActiveRecord::Base.find` in your code.  (Later in the course we will explore the RSpec mechanisms that allow us to do this "method shadowing" to disable certain methods in testing.)
+Also, the goal is to pass each test by using ActiveRecord's query interface, not by calling `find()` with the id's of the expected result records.  To remove that temptation, the RSpec tests raise an  error if you directly use `ActiveRecord::Base.find` in your code.  (Later in the course, we will explore the RSpec mechanisms that allow us to do this "method shadowing" to disable certain methods in testing.)
 
 Finally, if you're interested in learning more about the underlying SQL (Structured Query Language) commands that ActiveRecord is generating, we recommend:
 
@@ -128,7 +128,7 @@ Although ActiveRecord is a key part of Rails, you can use the ActiveRecord libra
 
 1.  The Gemfile lists `active_record` as an explicit dependency.  In a Rails app, the Gemfile would just list `rails` as a gem, but `rails` in turn depends on `active_record`, and Bundler would detect and resolve that dependency.
 
-2. Similarly, in `activerecord_practice.rb` there is a call to `establish_connection`.  In a normal Rails app you would never need this, since Rails itself takes care of managing the database connections and there are even Rails extensions that can spread connections across multiple databases and handle master-slave replication.
+2. Similarly, in `activerecord_practice.rb` there is a call to `establish_connection`.  In a normal Rails app, you would never need this, since Rails itself takes care of managing the database connections, and there are even Rails extensions that can spread connections across multiple databases and handle master-slave replication.
 
 3. The two files in the assignment, `activerecord_practice.rb` and the specfile `spec/activerecord_practice_spec.rb`, explicitly `require` various gems.  If this were a Rails app, Rails would automatically `require` all the gems in your Gemfile when your app starts up, so you'd almost never see explicit `require`s in the code files.
 
