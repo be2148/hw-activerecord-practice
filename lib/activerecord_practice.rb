@@ -74,4 +74,6 @@ class Customer < ApplicationRecord
   def self.delete_everyone_born_before_1978
     Customer.where("birthdate < ?", Date.new(1978, 1, 1)).destroy_all
   end
+
+  #commenting to try and submit as school GH account
 end
